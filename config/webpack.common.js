@@ -54,6 +54,7 @@ module.exports = {
     rules: [
       // JavaScript: Use Babel to transpile JavaScript files
       { test: /\.vue$/, loader: 'vue-loader' },
+
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
 
       // Images: Copy image files to build folder
@@ -61,6 +62,25 @@ module.exports = {
 
       // Fonts and SVGs: Inline files
       { test: /\.(woff(2)?|eot|ttf|otf|svg|)$/, type: 'asset/inline' },
+
+      {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires >= sass-loader@^8.0.0
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                indentedSyntax: true // optional
+              },
+            },
+          },
+        ],
+      },
+
     ],
   },
 
